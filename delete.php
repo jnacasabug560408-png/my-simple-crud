@@ -1,13 +1,11 @@
 <?php
-include 'components/pdo.php';
+include 'pdo.php';
 
-$sql = "DELETE FROM users WHERE id = ?";
-$stmt = $pdo->prepare($sql);
+if (isset($_GET['id'])) {
+    $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
+    $stmt->execute([$_GET['id']]);
+}
 
-$id = 3; // change this to the id you want to delete
-
-$stmt->execute([$id]);
-
-echo "Deleted rows: " . $stmt->rowCount();
-
+header("Location: view.php");
+exit;
 ?>
